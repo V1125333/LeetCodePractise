@@ -1,5 +1,7 @@
 /* Write your T-SQL query statement below */
-SELECT actor_id, director_id from ActorDirector
-GROUP BY director_id, actor_id
-Having count(actor_id) >=3
+with cte as(
+select actor_id, director_id, count(timestamp) as total_count from ActorDirector 
+group by actor_id, director_id having count(timestamp)>=3)
+
+select actor_id,director_id from cte
 
